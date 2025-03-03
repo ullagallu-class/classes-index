@@ -8,7 +8,7 @@
 - basic commands[logs,inspect,stats,run,rmi,rm,stop,pause,unpause,prune,system]
 
 **InterviewQuestions**
-- What are the challenges that are there applications are deployed in Physical Machines
+- What are the challenges there applications are deployed in Physical Machines
 - How VM  addressses the challenges in Physical Machines
 - Why VM are not suitable for micro services deployments and what are the challenges in VM deployment
 - What is virtulization 
