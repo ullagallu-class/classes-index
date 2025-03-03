@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container IP</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; margin-top: 50px; }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Container IP: <span id="ip">Loading...</span></h1>
+    <script>
+        fetch('/ip.txt')
+            .then(response => response.text())
+            .then(data => document.getElementById('ip').textContent = data)
+            .catch(error => console.error('Error fetching IP:', error));
+    </script>
+</body>
+</html>
