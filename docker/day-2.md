@@ -37,17 +37,106 @@ CMD ["bash"]
 ```
 This ensures the container runs with limited permissions, reducing security risks. Avoid running containers as root unless absolutely necessary.
 
-**When to Use ENTRYPOINT** 
-- When the container must always run a specific application (e.g., nginx, mysqld, etc.).
-- When you want to ensure the container runs a single, well-defined process.
-**When to Use CMD**
-- When you want a default command but allow users to override it.
+### CMD vs ENTRYPOINT in Docker  
+
+Both `CMD` and `ENTRYPOINT` define the default behavior of a container when it starts, but they serve different purposes.  
+
+---
+
+### CMD (Command)  
+- Specifies a default command to execute when the container runs.  
+- Can be overridden by passing a command when running the container.  
+- If multiple `CMD` instructions exist, only the last one takes effect.  
+
+Example:  
+```dockerfile
+FROM ubuntu  
+CMD ["echo", "Hello from CMD"]
+```
+Run container:  
+```sh
+docker run myimage
+# Output: Hello from CMD
+```
+Override CMD:  
+```sh
+docker run myimage echo "Overridden CMD"
+# Output: Overridden CMD
+```
+
+---
+
+### ENTRYPOINT  
+- Defines a fixed command that always runs when the container starts.  
+- Cannot be overridden using command-line arguments unless `--entrypoint` is specified.  
+- Best for containers that should always run a specific process, like nginx or mysqld.  
+
+Example:  
+```dockerfile
+FROM ubuntu  
+ENTRYPOINT ["echo", "Hello from ENTRYPOINT"]
+```
+Run container:  
+```sh
+docker run myimage
+# Output: Hello from ENTRYPOINT
+```
+Override ENTRYPOINT:  
+```sh
+docker run myimage "Overridden ENTRYPOINT"
+# Output: Hello from ENTRYPOINT Overridden ENTRYPOINT
+```
+Force override:  
+```sh
+docker run --entrypoint /bin/bash myimage
+```
+
+---
+
+### Combining ENTRYPOINT and CMD  
+A best practice is to use `ENTRYPOINT` for the main command and `CMD` to pass default arguments.  
+
+Example:  
+```dockerfile
+FROM ubuntu  
+ENTRYPOINT ["echo"]  
+CMD ["Hello from CMD"]
+```
+Run container:  
+```sh
+docker run myimage
+# Output: Hello from CMD
+```
+Override CMD:  
+```sh
+docker run myimage "Overridden CMD"
+# Output: Overridden CMD
+```
+Override ENTRYPOINT:  
+```sh
+docker run --entrypoint /bin/bash myimage
+```
+
+---
+
+### When to Use CMD vs ENTRYPOINT  
+
+| Scenario | Use `CMD` | Use `ENTRYPOINT` |
+|----------|----------|-----------------|
+| Default command, but user can override | Yes | No |
+| Enforcing a fixed application execution | No | Yes |
+| Running scripts, utilities with flexible arguments | Yes | No |
+| Running a single application as the main process | No | Yes |
+
+### Best Practice  
+- Use `ENTRYPOINT` for defining the main process.  
+- Use `CMD` for default arguments that can be overridden.
 ---
 # Docker Layers and Intermediate Images  
 
 Docker uses a layered file system, meaning each instruction in a Dockerfile creates a new layer on top of the previous one. These layers are cached and reused to speed up builds and reduce image size.  
 
-Types of Layers  
+**Types of Layers**  
 1. Base Layer – The first layer, created using `FROM`, which defines the base image (e.g., `ubuntu:20.04`).  
 2. Intermediate Layers – Created from `RUN`, `COPY`, and `ADD` instructions. These layers are cached and reused when building images.  
 3. Final Layer – The last layer that contains all modifications and forms the final Docker image.  
@@ -61,7 +150,7 @@ CMD ["nginx", "-g", "daemon off;"]
 ```
 Each instruction (`FROM`, `RUN`, `COPY`, `CMD`) creates a separate layer. If you modify `COPY index.html /var/www/html/`, Docker will reuse the previous layers and only rebuild the affected part.  
 
-Intermediate Images  
+**Intermediate Images**  
 Intermediate images are temporary layers created during the image build process. These images exist in the Docker cache and can be seen using:  
 ```sh
 docker history <image_id>
@@ -72,7 +161,7 @@ docker images --filter label=intermediate
 ```
 They help Docker speed up builds but are not stored in the final image.  
 
-Optimizing Layers  
+**Optimizing Layers** 
 1. Minimize Layers – Combine commands in a single `RUN` statement.  
    ```dockerfile
    RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
