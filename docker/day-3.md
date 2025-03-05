@@ -30,6 +30,22 @@ Containers are ephemeral, meaning they don’t persist data after termination or
    - `ro` (read-only) ensures the container cannot modify host files.  
    - If `rw` (read-write) is used, a vulnerable container can get full control over the host filesystem.
 
+  ### 🚀 Key Takeaways  
+
+| **Operation**    | **Read-Write (rw) Mount** | **Read-Only (ro) Mount** |
+|-----------------|-------------------------|-------------------------|
+| Read file      | ✅ Yes                    | ✅ Yes                   |
+| Modify file    | ✅ Yes                    | ❌ No                    |
+| Delete file    | ✅ Yes                    | ❌ No                    |
+
+### 🚀 Key Takeaways  
+
+| **Volume Type**     | **Syntax**             | **Persistence**                 | **Use Case**             |
+|---------------------|-----------------------|--------------------------------|--------------------------|
+| Anonymous Volume   | `-v /data`             | ❌ Removed with container      | Temporary storage       |
+| Named Volume       | `-v myvolume:/data`    | ✅ Survives container removal  | Persistent data         |
+| Bind Mount        | `-v /host/path:/data`  | ✅ Exists on host             | Direct file access      |
+
 
 # Docker-Compose
 Docker Compose is a tool that helps you define and manage multi-container Docker applications using a simple YAML file (docker-compose.yml). Instead of running multiple docker run commands manually, you can define your entire application stack in one file and start everything with a single command.
