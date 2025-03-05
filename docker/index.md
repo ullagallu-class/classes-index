@@ -45,6 +45,12 @@
 - bind mounts
 - dockerization instana
 - docker-compose to build&run instana
+
+**Interview Questions**
+- Why we are using volumes
+- what is docker home dir
+- what is annoynous/named/bindmounts
+- 
 # Day-4
 - Docker Best Practices
 - ECS Project
