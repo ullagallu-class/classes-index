@@ -1,3 +1,10 @@
+### Why Docker Networking?  
+Docker networking allows containers to communicate with each other and with external networks. It ensures:  
+1. Isolation – Containers have separate network namespaces.  
+2. Interconnectivity – Containers can talk to each other securely.  
+3. External Access – Containers can be exposed to the outside world.  
+4. Service Discovery – Containers can find and connect to services dynamically.  
+
 ### Types of Networking in Docker  
 
 1. Bridge Network (Default for Standalone Containers)  
