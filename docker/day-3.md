@@ -29,27 +29,7 @@ Docker networking allows containers to communicate with each other and with exte
    docker run --network host nginx
    ```
 
-3. Overlay Network (For Swarm Mode)  
-   - Enables multi-host communication for Docker Swarm clusters.  
-   - Requires a key-value store like Consul or etcd.  
-   - Useful for microservices across multiple nodes.  
-
-   Example:  
-   ```sh
-   docker network create -d overlay my_overlay
-   ```
-
-4. Macvlan Network  
-   - Assigns a physical MAC address to the container.  
-   - Container appears as a separate device on the network.  
-   - Used for direct integration with existing networks.  
-
-   Example:  
-   ```sh
-   docker network create -d macvlan --subnet=192.168.1.0/24 my_macvlan
-   ```
-
-5. None Network  
+3. None Network  
    - No network access.  
    - Useful for security-sensitive containers that don’t require external communication.  
 
@@ -68,9 +48,6 @@ docker network rm my_network  # Remove a network
 ```
 
 Docker networking helps manage container communication efficiently, whether within a single machine or across multiple nodes. 🚀
-
-# Docker-Compose
-Docker Compose is a tool that helps you define and manage multi-container Docker applications using a simple YAML file (docker-compose.yml). Instead of running multiple docker run commands manually, you can define your entire application stack in one file and start everything with a single command.
 
 # Docker volumes
 Containers are ephemeral, meaning they don’t persist data after termination or restart. To preserve data beyond the container lifecycle, we use volumes.
