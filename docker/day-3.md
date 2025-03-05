@@ -43,7 +43,8 @@ Docker networking allows containers to communicate with each other and with exte
 ### How to List and Inspect Networks  
 ```sh
 docker network ls        # List all networks  
-docker network inspect bridge  # Inspect a network  
+docker network inspect bridge  # Inspect a network
+docker network create my_netowrk # Create Network  
 docker network rm my_network  # Remove a network  
 ```
 
