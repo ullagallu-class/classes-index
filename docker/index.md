@@ -44,12 +44,7 @@
 - annoymous[tmp] & named volumes
 - bind mounts
 - dockerization instana
-- docker-compose to build instana
-- docker-compose to run multiple containers instana project
-- docker
-
+- docker-compose to build&run instana
 # Day-4
 - Docker Best Practices
 - ECS Project
-
-#
