@@ -1,16 +1,11 @@
-
-# docker best practices
-- Official image
-- Multi stage docker build to keep image size less
-- Avoid containers run as root user
-- Use .dockerignore to exclude unnecessary files.
-- Combine multiple RUN instructions to reduce image layers.
-- Use specific image versions instead of latest.
-- Regularly update images to patch security vulnerabilities.
-- Clean up unused images, containers, and volumes to free up space.
-- Use environment variables for configuration instead of hardcoding.
-- Prefer CMD over ENTRYPOINT unless strict execution control is needed.
-
+### **Docker Best Practices**  
+- Use official images with specific tags instead of `latest`.  
+- Keep image size small using multi-stage builds. Avoid multiple `RUN` commands; combine them using `&&` in a single `RUN` instruction.  
+- Run containers as a non-root user for better security.  
+- Avoid copying unnecessary files into the build context. Use `.dockerignore` and avoid `COPY . .` whenever possible.  
+- Set a working directory using the WORKDIR instruction instead of using RUN cd .... 
+- Optimize Docker layer caching by placing rarely changing instructions (e.g., `COPY package.json` & `RUN npm install`) at the top and frequently changing ones at the bottom.  
+- Scan images for security vulnerabilities using tools like `docker scan` or `Trivy`.  
 
 # Problems with standalone contsiners
 
@@ -30,6 +25,8 @@
 
 8. `Security & Compliance` – Managing user permissions, securing images, handling secrets, and ensuring compliance (PCI-DSS, HIPAA) requires additional tooling.  
 
+# What is ECS?
+Amazon ECS (Elastic Container Service) is a container orchestration service that helps you run and manage Docker containers on AWS. It removes the complexity of running containers by handling deployment, scaling, and networking for you.
 
 ### Why ECS over plain Docker?  
 1. ``Managed Service`` – ECS handles container orchestration, scheduling, and scaling, reducing operational overhead.  
