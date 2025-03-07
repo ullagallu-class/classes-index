@@ -27,8 +27,6 @@
 - Dockerfile instructions
 - Expense Project Dockerrization
 - Docker Layers
-- Docker-Networking
-- Docker-Compose
 
 **Interview Questions**
 - Can you please explain What is Dockerfile and it's instructions
@@ -39,18 +37,26 @@
 - What is overlay and bridge network
 - Difference between default & custom bridge networks
 - Netowork types in docker
+- How can you remove dangling images
+- How can you clean dcoker system file system
 
 # Day-3[05-03-2025]
 - annoymous[tmp] & named volumes
 - bind mounts
 - dockerization instana
 - docker-compose to build&run instana
+- docker compose
+- docker networking
 
 **Interview Questions**
 - Why we are using volumes
 - what is docker home dir
 - what is annoynous/named/bindmounts
-- 
-# Day-4
+
+# Day-4[07-03-2025]
+- trivy
 - Docker Best Practices
-- ECS Project
+- ECS explanation
+
+# Day-5[08-03-2025]
+- ECS project
